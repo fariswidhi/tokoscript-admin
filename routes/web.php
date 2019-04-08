@@ -11,26 +11,56 @@
 |
 */
 
-Auth::routes();
+// Auth::routes();
 /* CoreUI templates */
 
-Route::middleware('auth')->group(function() {
-	Route::view('/', 'panel.blank');
-	// Section CoreUI elements
-	Route::view('/sample/dashboard','samples.dashboard');
-	Route::view('/sample/buttons','samples.buttons');
-	Route::view('/sample/social','samples.social');
-	Route::view('/sample/cards','samples.cards');
-	Route::view('/sample/forms','samples.forms');
-	Route::view('/sample/modals','samples.modals');
-	Route::view('/sample/switches','samples.switches');
-	Route::view('/sample/tables','samples.tables');
-	Route::view('/sample/tabs','samples.tabs');
-	Route::view('/sample/icons-font-awesome', 'samples.font-awesome-icons');
-	Route::view('/sample/icons-simple-line', 'samples.simple-line-icons');
-	Route::view('/sample/widgets','samples.widgets');
-	Route::view('/sample/charts','samples.charts');
-});
+// Route::middleware('auth')->group(function() {
+// 	Route::view('/', 'panel.blank');
+// 	// Section CoreUI elements
+// 	Route::view('/sample/dashboard','samples.dashboard');
+// 	Route::view('/sample/buttons','samples.buttons');
+// 	Route::view('/sample/social','samples.social');
+// 	Route::view('/sample/cards','samples.cards');
+// 	Route::view('/sample/forms','samples.forms');
+// 	Route::view('/sample/modals','samples.modals');
+// 	Route::view('/sample/switches','samples.switches');
+// 	Route::view('/sample/tables','samples.tables');
+// 	Route::view('/sample/tabs','samples.tabs');
+// 	Route::view('/sample/icons-font-awesome', 'samples.font-awesome-icons');
+// 	Route::view('/sample/icons-simple-line', 'samples.simple-line-icons');
+// 	Route::view('/sample/widgets','samples.widgets');
+// 	Route::view('/sample/charts','samples.charts');
+// });
+
+
+
+
+Route::group(['prefix' => '/','middleware'=>'auth-admin'], function() {
+Route::post('logout', 'AuthController@logout');
+
+Route::get('/', 'AuthController@dashboard');
+Route::get('login', 'AuthController@login');
+Route::post('login', 'AuthController@loginPost');
 // Section Pages
 Route::view('/sample/error404','errors.404')->name('error404');
 Route::view('/sample/error500','errors.500')->name('error500');
+Route::resource('kategori', 'KategoriController');
+
+Route::post('produk/{id}', 'ProdukController@update');
+
+Route::resource('produk', 'ProdukController');
+Route::resource('user', 'UserController');
+Route::resource('user-system', 'UserSystemController');
+Route::post('metode-pembayaran/{id}', 'MetodePembayaranController@update');
+
+Route::resource('metode-pembayaran', 'MetodePembayaranController');
+
+Route::resource('akun-bank', 'AkunBankController');
+
+Route::resource('role', 'RoleController');
+Route::resource('transaksi', 'TransaksiController');
+Route::get('/pengaturan', 'PengaturanController@pengaturan');
+Route::post('/pengaturan', 'PengaturanController@pengaturan');
+
+
+});

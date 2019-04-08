@@ -39,7 +39,7 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <div class="dropdown-header text-center">
-          <strong>{{ auth()->user()->name }}'s Account</strong>
+          <strong>NAMA AKUN</strong>
         </div>
 {{--         <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
         <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a>
@@ -55,7 +55,7 @@
         <div class="divider"></div>
         <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a>
  --}}        
-        <a class="dropdown-item" href="{{ route('logout') }}" 
+        <a class="dropdown-item" href="{{ url('/logout') }}" 
           onclick="event.preventDefault(); 
           document.getElementById('logout-form').submit();">
           <i class="fa fa-lock"></i> Logout </a>
@@ -67,7 +67,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+ <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
   {{ csrf_field() }}
 </form>
 </header>
