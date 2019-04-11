@@ -70,7 +70,12 @@
             </form>
 
             <script type="text/javascript">
-              
+                        
+  $(document).ready(function() {
+  $('#summernote').summernote({
+    height:400
+  });
+});
   function readURL(input) {
 
   if (input.files && input.files[0]) {

@@ -20,6 +20,7 @@
   <!-- Icons -->
   <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/simple-line-icons.css') }}" rel="stylesheet">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Main styles for this application -->
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -27,8 +28,7 @@
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">  
   <link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+      <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 
 </head>
 <!-- BODY options, add following classes to body to change options
@@ -73,6 +73,8 @@
 
 
   <!-- Modal -->
+  @if (Request::segment(1)!='produk')
+    {{-- expr --}}
 <div id="modalEdit" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -95,10 +97,35 @@
 
   </div>
 </div>
+@else
+<div id="modalEdit" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title mdl-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <div id="mdlBody">
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+  @endif
+
 <script type="text/javascript" src="{{ asset('vendor/select2/dist/js/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor//bootstrap-notify.min.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('vendor//bootstrap-notify.min.js') }}"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
   <script type="text/javascript">
     
@@ -115,7 +142,7 @@ $.ajaxSetup({
                             var title = $(this).attr("data-title");
                             $.get(source,function(res){
                                   $(".select2").select2({
-                                    width:'100%'
+                                    width:'100%',
                                   });
                               $(document).ready(function(){
                             var form = $("#form");
@@ -145,6 +172,7 @@ $.ajaxSetup({
     // form.validate();
 
   });
+                            $("#modalEdit").modal({backdrop: 'static', keyboard: false})  ;
 
 
                             $("#modalEdit").modal('show')
@@ -158,6 +186,10 @@ $.ajaxSetup({
     //   autoclose: true,
     //   dateFormat: 'yy-mm-dd'
     // });
+    
+                                  $(".selectTag").select2({
+                                    tags:true
+                                  });
                             })
 
                         }) ;

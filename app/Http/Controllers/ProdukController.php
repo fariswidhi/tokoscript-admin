@@ -109,6 +109,7 @@ public function __construct()
             'showAsTable'=>false,
             'data'=>Tag::all(),
             'id'=>'id',
+            'class'=>'selectTag',
             'value'=>'tag',
             'related'=>true,
             'belongsTo'=>'kategory',
@@ -197,8 +198,18 @@ public function __construct()
 
         }
         else{
+
+          if (session('levelid')=='2') {
+            # code...
+            $dataTable = Table::where('userid',session('adminid'))->paginate(10);
+
+          }
+          else{
+
             $dataTable = Table::paginate(10);
+          }
         }
+        // print_r(session()->all());
         return view($this->dir.'/table',compact('data','dataTable','title','subtitle'));
     }
 
@@ -288,6 +299,7 @@ $file = $request->file('file');
 $table = new Table; 
 $table->nama= $request->nama;
 $table->harga= $request->harga;
+$table->userid = session('adminid');
 
 if (!empty($file)) {
 
